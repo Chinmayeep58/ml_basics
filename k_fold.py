@@ -12,6 +12,8 @@ from sklearn.ensemble import RandomForestClassifier
 import numpy as np
 from sklearn.datasets import load_digits
 from sklearn.model_selection import train_test_split, KFold
+from sklearn.model_selection import cross_val_score
+
 
 digits=load_digits()
 x_train, x_test, y_train, y_test=train_test_split(digits.data, digits.target,test_size=0.2)
@@ -48,6 +50,9 @@ for train_index, test_index in kf.split(digits.data):
     scores_svm.append(get_score(SVC(),x_train,x_test,y_train,y_test))
     scores_rf.append(get_score(RandomForestClassifier(),x_train,x_test,y_train,y_test))
     
-print(scores_l)
-print(scores_svm)
-print(scores_rf)
+# print(scores_l)
+# print(scores_svm)
+# print(scores_rf)
+
+sc=cross_val_score(LogisticRegression(),digits.data,digits.target)
+print(sc)
